@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My first Vue app</title>
+  <script src="vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <button @click="counter++">Increase</button>
+    <button v-on:click="counter--">Decrease</button>
+    <button v-on:click="secondCounter++">Increase Second</button>
+    <p>{{counter}} | {{secondCounter}}</p>
+    <!-- <p>Result - {{counter > 5 ? 'Greater five' : 'Less than five'}}</p> -->
+    <p>Result - {{result()}} | {{output}}</p>
+	</div>
+	<div id="app1">
+    <p>Current value: {{value}}</p>
+    <button v-on:click="value +=5">Add 5</button>
+    <button v-on:click="value +=1">Add 1</button>
+    <p>Result {{result}}</p>
+    <div>
+      <input type="text">
+      <p>{{ value }}</p>
+    </div>
+  </div>
+  <script>
+    var app1 = new Vue({
+      el: '#app1',
+      data: {
+        value: 0
+      },
+      computed: {
+        result: function() {
+          return this.value > 37 ? 'Done' : 'Not Done'
+        },
+        watch: {
+          result: function() {
+            alert('sa1');
+            var vm = this;
+            setTimeout(function(){
+              console.log(vm.value);
+              vm.value = 0;
+            }, 5000)
+          }
+        }
+      }
+    });
+    var app = new Vue({
+      el: '#app',
+      data: {
+        counter: 0,
+        secondCounter: 0
+      },
+      computed: {
+        output: function() {
+          console.log('computed');
+          return this.counter > 5 ? 'Greater five' : 'Less than five';
+        }
+      },
+      watch: {
+        counter: function() {
+          var vm = this;
+          setTimeout(function(){
+            vm.counter = 0;
+          }, 2000)
+        }
+      },
+      methods: {
+        result: function() {
+          console.log('method');
+          return this.counter > 5 ? 'Greater five' : 'Less than five';
+        }
+      }
+		});
+		
+  </script>
+</body>
+</html>

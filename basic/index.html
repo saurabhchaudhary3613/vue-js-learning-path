@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My first Vue app</title>
+  <script src="vue.js"></script>
+</head>
+<body>
+  <div id="app">
+		<input type="text" v-on:input="changeMessage">
+		{{ message }}
+		<p>
+			{{sayHello()}} - <a v-bind:href="link">Google</a>
+		</p>
+	</div>
+	<div id="app1">
+		<button v-on:click="increase(2, $event)">click me</button>
+		<button v-on:click="count++">click me</button>
+		<p>{{count}}-{{count  > 10 ? 'Greater than 10' : 'Less than 10'}}</p>
+		<p>Result: {{result}}</p>
+		<p v-on:mousemove="updateCoordinates">
+			Coordinates: {{x}} / {{y}} - 
+			<span v-on:mousemove.stop="">Dead Spot</span>
+		</p>
+		<input v-on:keyup.enter.space="alertMe" type="text" />
+	</div>
+	
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+				message: 'Hello Vue!',
+				name: 'Saurabh',
+				link: 'http://google.com'
+			},
+			methods: {
+				changeMessage: function(evt) {
+					this.message = evt.target.value;
+				},
+				sayHello: function() {
+					return this.name
+				}
+			}
+		});
+		var app1 = new Vue({
+			el: '#app1',
+			data: {
+				count: 0,
+				x: 0,
+				y: 0,
+				result: ''
+			},
+			methods: {
+				increase: function(step, event) {
+					this.count += step;
+					this.result = this.count > 5 ? 'Greater 5' : 'Less 5'
+				},
+				updateCoordinates: function(event) {
+					this.x = event.clientX;
+					this.y = event.clientY;
+				},
+				dummy: function(event) {
+					event.stopPropagation();
+				},
+				alertMe: function() {
+					alert('alert!');
+				}
+			}
+		});
+  </script>
+</body>
+</html>
