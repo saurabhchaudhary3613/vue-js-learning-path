@@ -11,11 +11,26 @@
 		<p>
 			{{name}}
 		</p>
+		<hr>
+		<my-comp></my-comp>
+		<hr>
+		<my-comp></my-comp>
 	</div>
 	
   <script>
+  var comp = {
+	data: function() {
+		return {
+			sattus: 'critical'
+		}
+	},
+	template: '<p>Server Status: {{ sattus }}</p>'
+  };
     var app = new Vue({
       el: '#app',
+	  components: {
+		'my-comp': comp
+	  },
       data: {
 				name: 'Saurabh',
 			}
